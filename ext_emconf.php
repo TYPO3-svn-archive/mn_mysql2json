@@ -12,7 +12,11 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'MySQL to JSON',
-	'description' => 'An eID call of any table in MySQL to get the data back as JSON. The tables in MySQL that are allowed are configurable, defaults are tt_content and pages.',
+	'description' => 'An eID call of any table in MySQL to get the data back as JSON. The tables in MySQL that are allowed are configurable, defaults are tt_content and pages. The request is being made like this:
+
+http://yourdomain/?eID=tx_mnmysql2json_Table&tx_mnmysql2json[action]=getTable&tx_mnmysql2json[tableName]=pages&tx_mnmysql2json[fields]=title,pid,uid
+
+You can use all parameters that are use in a MySQL query so in this case if you would like to use where you just add, tx_mnmysql2json[where]= uid = 21',
 	'category' => 'misc',
 	'author' => 'Mattias Nilsson',
 	'author_email' => 'tollepjaer@gmail.com',
