@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext "mn_mysql2json".
 #
-# Auto generated 17-04-2011 06:24
+# Auto generated 31-01-2012 07:56
 #
 # Manual updates:
 # Only the data in the array - everything else is removed by next
@@ -33,7 +33,7 @@ You can use all parameters that are use in a MySQL query so in this case if you 
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
 	'author_company' => '',
-	'version' => '1.1.0',
+	'version' => '1.2.0',
 	'constraints' => array(
 		'depends' => array(
 		),
@@ -42,7 +42,7 @@ You can use all parameters that are use in a MySQL query so in this case if you 
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:7:{s:9:"ChangeLog";s:4:"2890";s:10:"README.txt";s:4:"ee2d";s:19:"class.Table_eid.php";s:4:"b95d";s:12:"ext_icon.gif";s:4:"4758";s:17:"ext_localconf.php";s:4:"c75c";s:19:"doc/wizard_form.dat";s:4:"9d98";s:20:"doc/wizard_form.html";s:4:"6527";}',
+	'_md5_values_when_last_written' => 'a:7:{s:9:"ChangeLog";s:4:"2890";s:10:"README.txt";s:4:"ee2d";s:19:"class.Table_eid.php";s:4:"b95d";s:12:"ext_icon.gif";s:4:"4758";s:17:"ext_localconf.php";s:4:"c75c";s:14:"doc/manual.pdf";s:4:"f493";s:14:"doc/manual.sxw";s:4:"0f84";}',
 	'suggests' => array(
 	),
 );
