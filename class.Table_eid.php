@@ -3,7 +3,7 @@ require_once(PATH_tslib.'class.tslib_pibase.php');
 
 class Table_eid extends tslib_pibase {
     var $extKey = 'tx_mnmysql2json';
-    var $allowedTables = array('tt_content', 'pages');
+    var $allowedTables = ""; //array('tt_content', 'pages');
     
     /**
      * Table_eid::main()
@@ -18,6 +18,10 @@ class Table_eid extends tslib_pibase {
             $this->piVars = array_merge($this->piVars, t3lib_div::_POST($this->extKey));
         }
         $result = array();
+        
+        $extConfig = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['mn_mysql2json']);
+        
+        $this->allowedTables = t3lib_div::trimExplode(",", $extConfig["allowedTables"]);
         
         switch ($this->piVars['action']) {
             case 'getTable' :

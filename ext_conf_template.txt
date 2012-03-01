@@ -1,0 +1,2 @@
+# cat=basic; type=string; label=Allowed database tables
+allowedTables = pages,tt_content
