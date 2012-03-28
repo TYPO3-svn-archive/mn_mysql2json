@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext "mn_mysql2json".
 #
-# Auto generated 01-03-2012 09:34
+# Auto generated 28-03-2012 16:27
 #
 # Manual updates:
 # Only the data in the array - everything else is removed by next
@@ -33,7 +33,7 @@ You can use all parameters that are use in a MySQL query so in this case if you 
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
 	'author_company' => '',
-	'version' => '1.3.0',
+	'version' => '2.1.0',
 	'constraints' => array(
 		'depends' => array(
 		),
