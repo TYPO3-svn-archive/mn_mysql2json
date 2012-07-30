@@ -3,7 +3,7 @@ require_once(PATH_tslib.'class.tslib_pibase.php');
 
 class Table_eid extends tslib_pibase {
     var $extKey = 'tx_mnmysql2json';
-    var $allowedTables = ""; //array('tt_content', 'pages');
+    var $allowedTables = "";
     
     /**
      * Table_eid::main()
@@ -25,7 +25,23 @@ class Table_eid extends tslib_pibase {
         
         switch ($this->piVars['action']) {
             case 'getTable' :
-                $result = $this->getTable(mysql_real_escape_string($this->piVars['tableName']), mysql_real_escape_string($this->piVars['fields']), mysql_real_escape_string($this->piVars['where']), mysql_real_escape_string($this->piVars['groupBy']), mysql_real_escape_string($this->piVars['orderBy']), mysql_real_escape_string($this->piVars['limit']));
+                if(!$this->checkForSqlCommands($this->piVars)) {
+                    $result = $this->getTable(
+                        $this->sanitizeInput($this->piVars['tableName']), 
+                        $this->sanitizeInput($this->piVars['fields']), 
+                        $this->sanitizeInput($this->piVars['where']), 
+                        $this->sanitizeInput($this->piVars['groupBy']), 
+                        $this->sanitizeInput($this->piVars['orderBy']), 
+                        $this->sanitizeInput($this->piVars['limit'])
+                    );    
+                }
+                else {
+                    $result = array(
+                        array(
+                            'error' => 'Illegal action'
+                        )
+                    );
+                }
             break; 
         }
         
@@ -52,7 +68,14 @@ class Table_eid extends tslib_pibase {
             }
         
             $result = array();
-            $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($fields, $tableName, 'deleted != 1 AND hidden != 1' . $where, $groupBy, $orderBy, $limit);
+            $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+                $fields, 
+                $tableName, 
+                'deleted != 1 AND hidden != 1' . $where,
+                $groupBy, 
+                $orderBy,
+                $limit
+            );
             
             while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
                 if($row['bodytext']) {
@@ -63,6 +86,33 @@ class Table_eid extends tslib_pibase {
         }
 
         return $result;   
+    }
+    
+    /**
+     * A function to sanitize the input data from url
+     * 
+     * @param $inputData the data to clean up
+     * @return $data the sanitized data
+     */
+    private function sanitizeInput($inputData) {
+        $data = mysql_real_escape_string($inputData);
+        $data = $GLOBALS['TYPO3_DB']->quoteStr($data);
+        //$data = $GLOBALS['TYPO3_DB']->fullQuoteStr($data);
+        return $data;
+    }
+    
+    /**
+     * To prevent an SQL injection for any table or property in the database.
+     * 
+     * @param 
+     */
+    private function checkForSqlCommands($data) {
+        foreach($data as $key => $value) {
+            if(preg_match('/(and|null|where|limit)/i', $value) || preg_match('/(union|select|from|having)/i', $value)) {
+                return TRUE;
+            }    
+        } 
+        return FALSE;
     }
     
 }
