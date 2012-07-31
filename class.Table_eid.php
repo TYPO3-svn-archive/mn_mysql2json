@@ -11,7 +11,7 @@ class Table_eid extends tslib_pibase {
      * @return void
      */
     function main(){    
-        tslib_eidtools::connectDB(); //Connect to database
+        tslib_eidtools::connectDB();
 
         $this->piVars = t3lib_div::_GET($this->extKey);
         if (is_array(t3lib_div::_POST($this->extKey))) {
@@ -52,13 +52,13 @@ class Table_eid extends tslib_pibase {
     /**
      * Table_eid::getTable()
      * 
-     * @param   string  $tableName the name of the mysql table
-     * @param   string  $fields fields in the mysql table to select, separated by ,
-     * @param   string  $where the where query, deleted != 1 and hidden != 1 is enabled by default
-     * @param   string  $groupBy the group by query
-     * @param   string  $orderBy the order query
-     * @param   integer $limit the limit query
-     * @return  array   $result
+     * @param string $tableName the name of the mysql table
+     * @param string $fields fields in the mysql table to select, separated by ,
+     * @param string $where the where query, deleted != 1 and hidden != 1 is enabled by default
+     * @param string $groupBy the group by query
+     * @param string $orderBy the order query
+     * @param integer $limit the limit query
+     * @return array $result
      */
     private function getTable($tableName, $fields, $where = '', $groupBy = '', $orderBy = '', $limit = '') {
         
@@ -91,20 +91,20 @@ class Table_eid extends tslib_pibase {
     /**
      * A function to sanitize the input data from url
      * 
-     * @param $inputData the data to clean up
-     * @return $data the sanitized data
+     * @param string $inputData the data to clean up
+     * @return string $data the sanitized data
      */
     private function sanitizeInput($inputData) {
         $data = mysql_real_escape_string($inputData);
         $data = $GLOBALS['TYPO3_DB']->quoteStr($data);
-        //$data = $GLOBALS['TYPO3_DB']->fullQuoteStr($data);
         return $data;
     }
     
     /**
      * To prevent an SQL injection for any table or property in the database.
      * 
-     * @param 
+     * @param array $data the data to check for SQL injections
+	 * @return boolean true or false depending on the outcome of parsing
      */
     private function checkForSqlCommands($data) {
         foreach($data as $key => $value) {
